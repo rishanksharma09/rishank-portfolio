@@ -5,7 +5,15 @@ import { Button } from "@/components/ui/button"
 
 const Navbar = () => {
   return (
-    <div className="flex justify-between items-center px-8 py-6 bg-[#1D1C2291] w-full rounded-lg">
+    <div className="fixed top-6 left-1/2 -translate-x-1/2
+  z-50
+  px-6 py-3
+  flex gap-8 items-center
+  bg-white/5
+  backdrop-blur-xl
+  border border-white/10
+
+  shadow-lg shadow-black/30 rounded-3xl">
       <div className="left flex items-center gap-2 ">
         <Image src="/images/logo.png" alt="Logo" width={60} height={60} className='invert'></Image>
         <h1 className="text-2xl font-bold text-white"></h1>

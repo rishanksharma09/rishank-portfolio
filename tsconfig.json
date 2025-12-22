@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, "app/components/HeroModels/BatmanModel.tsx"  ],
+, "app/components/HeroModels/BatmanModel.tsx", "app/components/TechModels/Nodejs.jsx", "app/components/TechModels/React.jsx", "app/components/TechModels/Ts.jsx", "app/components/HeroModels/LegoBatman.jsx"  ],
   "exclude": ["node_modules"]
 }

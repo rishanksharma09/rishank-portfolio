@@ -4,6 +4,8 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment } from "@react-three/drei";
 import  BatmanModel  from "./BatmanModel";
 
+
+
 export default function Batman() {
   return (
     <Canvas
@@ -33,8 +35,11 @@ export default function Batman() {
       {/* HDR environment */}
       <Environment preset="city" />
 
+
+
       {/* Batman */}
       <BatmanModel scale={2.2} />
+      {/* <Model /> */}
 
       {/* Camera controls */}
       <OrbitControls
