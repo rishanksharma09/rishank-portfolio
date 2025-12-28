@@ -106,7 +106,6 @@ const Projects = () => {
         trigger: `#project-marker-${index}`,
         start: "top bottom",
         end: `bottom bottom`,
-        markers: true,
         scrub: true,
         onEnter: () => changeProject(index),
         onEnterBack: () => changeProject(index),

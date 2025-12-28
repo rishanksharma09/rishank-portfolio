@@ -2,9 +2,15 @@
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import MobileNavbar from "./MobileNavbar";
+import { is } from "zod/v4/locales";
 
 export default function Navbar() {
+  // check screen size for responsiveness
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
+
   return (
+    isMobile ? <MobileNavbar /> :
     <nav className="fixed top-6 left-1/2 z-50 -translate-x-1/2">
       
       {/* outer glow */}
