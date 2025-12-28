@@ -22,11 +22,11 @@ export default function BatmanModel(
   const pack = nodes.Object_288 as THREE.SkinnedMesh;
 
   // Floating animation (smooth & correct)
-  useFrame((state) => {
-    if (!groupRef.current) return;
-    groupRef.current.position.y =
-      -1.75 + Math.sin(state.clock.elapsedTime) * 0.05;
-  });
+  // useFrame((state) => {
+  //   if (!groupRef.current) return;
+  //   groupRef.current.position.y =
+  //     -1.75 + Math.sin(state.clock.elapsedTime) * 0.05;
+  // });
 
   return (
     <group ref={groupRef} {...props} dispose={null}>

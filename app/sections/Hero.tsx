@@ -1,65 +1,98 @@
-"use client"
-import { useState,useEffect, use } from 'react'
-import React from 'react'
-import Navbar from '../components/Navbar'
-import { Button } from "@/components/ui/button"
-import { LucideLink2 } from 'lucide-react'
-import Batman from '../components/HeroModels/Batman'
-import { skills } from '../constants'
-import gsap from 'gsap'
-import GlowCard from '../components/GlowCard'
+"use client";
 
+import { useEffect, useState } from "react";
+import gsap from "gsap";
+import { Button } from "@/components/ui/button";
+import { LucideLink2 } from "lucide-react";
+import Batman from "../components/HeroModels/Batman";
+import { skills } from "../constants";
+import GlowCard from "../components/GlowCard";
 
+export default function Hero() {
+  const [currentSkillIndex, setCurrentSkillIndex] = useState(0);
 
-const Hero = () => {
-    const[currentSkillIndex, setCurrentSkillIndex] = useState(0);
-    useEffect(() => {
-        gsap.fromTo("#skills", {opacity:0, y: -20}, {opacity:1, y:0, duration:0.3, ease:"power2.out"});
-        gsap.to("#skills", {opacity:0, y: 20, duration:0.3, ease:"power2.in", delay:2, onComplete: () => {
-            setCurrentSkillIndex((currentSkillIndex) => (currentSkillIndex + 1) % skills.length);
-        }});
-    }, [currentSkillIndex]);
-     
-    return (
-        <>
-            <header className="w-full flex justify-center" id='navbar'>
-                <Navbar />
-            </header>
-            <main className="w-full mt-20 flex justify-between items-center grid grid-cols-2 gap-0  px-19 ">
-                <section className="left flex flex-col gap-6  justify-center h-[500px] w-full  ">
-                    <div className="heading"><h1 className="text-7xl font-bold text-white">Saving the world through my <div className="text-blue-400" id='skills'>{skills[currentSkillIndex]}</div> skills</h1></div>
-                    <div className="subheading"><span className="text-lg text-gray-300 mt-4">Hi, I'm <span className="text-blue-400 font-bold">Rishank Sharma</span> aka Batman, a developer passionate about creating impactful web solutions.</span></div>
-                    <div className="button">
-                        <Button className='bg-blue-400 text-white text-lg text-shadow-blue-950 font-bold rounded-3xl flex justify-center items-center w-20 py-5'>CV <LucideLink2  /></Button>
-                    </div>
+  useEffect(() => {
+    gsap.fromTo(
+      "#skill-word",
+      { opacity: 0, y: -20 },
+      { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }
+    );
 
+    gsap.to("#skill-word", {
+      opacity: 0,
+      y: 20,
+      duration: 0.4,
+      ease: "power2.in",
+      delay: 2,
+      onComplete: () => {
+        setCurrentSkillIndex((i) => (i + 1) % skills.length);
+      },
+    });
+  }, [currentSkillIndex]);
 
-                </section>
-                <section className="relative h-[500px] w-full 
-                 ">
+  return (
+    <section className="relative w-full min-h-screen bg-[#05070c] overflow-hidden">
 
-                    {/* Subtle Batman shadow */}
-                    <div className="absolute left-20 top-1/2 -translate-y-1/2 w-[420px] h-[420px] bg-[radial-gradient(circle,rgba(120,120,120,0.25)_0%,rgba(120,120,120,0.15)_25%,transparent_65%)] blur-2xl pointer-events-none">
-                    </div>
+      {/* background glow layers */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(59,130,246,0.18),transparent_40%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_60%,rgba(37,99,235,0.15),transparent_45%)]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black" />
 
-                    {/* Batman */}
-                    <div className="absolute left-0 top-0 h-full w-full">
-                        <Batman />
-                    </div>
+      {/* HERO CONTENT */}
+      <main className="relative z-10 max-w-7xl mx-auto px-8 pt-32 grid grid-cols-1 lg:grid-cols-2 items-center gap-10">
 
-                </section>
+        {/* LEFT */}
+        <div className="flex flex-col gap-8">
+          <h1 className="text-5xl md:text-6xl xl:text-7xl font-semibold leading-tight tracking-tight text-white">
+            Saving the world <br />
+            through my{" "}
+            <span
+              id="skill-word"
+              className="block text-blue-500 drop-shadow-[0_0_25px_rgba(59,130,246,0.6)]"
+            >
+              {skills[currentSkillIndex]}
+            </span>
+            skills
+          </h1>
 
+          <p className="max-w-xl text-lg text-white/60 leading-relaxed">
+            Hi, I’m{" "}
+            <span className="text-blue-400 font-medium">Rishank Sharma</span>, aka
+            Batman — a frontend developer focused on building immersive,
+            high-impact web experiences.
+          </p>
 
-            </main>
-                <section className="grid grid-cols-4 gap-4 mt- w-full  flex justify-center items-center  text-white h- ">
-                    <GlowCard title="200+" subtitle="satisfied clients" />
-                    <GlowCard title="150+" subtitle="projects completed" />
-                    <GlowCard title="5" subtitle="years of experience" />
-                    <GlowCard title="24/7" subtitle="support available" />
-                </section>
+          <div className="flex items-center gap-4">
+            <Button
+              className="group relative rounded-full px-7 py-6 text-base font-medium bg-blue-600 hover:bg-blue-500 transition shadow-[0_0_30px_rgba(59,130,246,0.45)]"
+            >
+              View CV
+              <LucideLink2 className="ml-2 h-4 w-4 opacity-80" />
+              <span className="absolute inset-0 rounded-full bg-[linear-gradient(120deg,transparent,rgba(255,255,255,0.25),transparent)] opacity-0 group-hover:opacity-100 transition" />
+            </Button>
+          </div>
+        </div>
 
-        </>
-    )
+        {/* RIGHT – 3D STAGE */}
+        <div className="relative h-[520px] w-full flex items-center justify-center pointer-events-none">
+
+          {/* batman glow */}
+          <div className="absolute w-[480px] h-[480px] bg-[radial-gradient(circle,rgba(59,130,246,0.25),transparent_65%)] blur-3xl" />
+
+          {/* 3D MODEL */}
+          <div className="relative w-full h-full">
+            <Batman />
+          </div>
+        </div>
+      </main>
+
+      {/* STATS */}
+      <section className="relative z-10 max-w-7xl mx-auto px-8 mt-24 grid grid-cols-2 md:grid-cols-4 gap-6">
+        <GlowCard title="200+" subtitle="satisfied clients" />
+        <GlowCard title="150+" subtitle="projects completed" />
+        <GlowCard title="5" subtitle="years experience" />
+        <GlowCard title="24/7" subtitle="availability" />
+      </section>
+    </section>
+  );
 }
-
-export default Hero

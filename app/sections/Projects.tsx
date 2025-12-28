@@ -6,89 +6,223 @@ import { LucideGithub, LucideLink } from "lucide-react"
 import { projects } from "../constants"
 import gsap from "gsap"
 import ScrollTrigger from "gsap/ScrollTrigger"
+import ActionIcon from "../components/ActionIcon"
+import Link from "next/link"
+
 
 gsap.registerPlugin(ScrollTrigger)
 
 const Projects = () => {
-  const [projectInfo, setProjectInfo] = useState(projects[0])
-  const currentIndex = useRef(0)
+
+  const activeIndexRef = useRef(0)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const cardRef = useRef(null)
 
   useEffect(() => {
+  const navbar = document.querySelector("#navbar");
+
+  ScrollTrigger.create({
+    trigger: "#projectTrigger1", // or the section wrapper
+    start: "top top",
+    end: "bottom top",
+
+    onEnter: () => {
+      gsap.to(navbar, {
+        y: "-300",
+        duration: 0.3,
+        ease: "power2.out",
+      })
+    },
+    onEnterBack: () => {
+      gsap.to(navbar, {
+        y: "-300",
+        duration: 0.3,
+        ease: "power2.out",
+      })
+    },
+
+    onLeaveBack: () => {
+      gsap.to(navbar, {
+        y: "0%",
+        duration: 0.3,
+        ease: "power2.out",
+      })
+    },
+
+    onLeave: () => {
+      gsap.to(navbar, {
+        y: "0%",
+        duration: 0.3,
+        ease: "power2.out",
+      })
+    },
+  })
+
+  ScrollTrigger.create({
+    trigger: "#projectTrigger2", // or the section wrapper
+    start: "top top",
+    end: "bottom top",
+
+    onEnter: () => {
+      gsap.to(navbar, {
+        y: "-300",
+        duration: 1,
+        ease: "power2.out",
+      })
+    },
+    onEnterBack: () => {
+      gsap.to(navbar, {
+        y: "-300",
+        duration: 1,
+        ease: "power2.out",
+      })
+    },
+
+    onLeaveBack: () => {
+      gsap.to(navbar, {
+        y: "0%",
+        duration: 1,
+        ease: "power2.out",
+      })
+    },
+
+    onLeave: () => {
+      gsap.to(navbar, {
+        y: "0%",
+        duration: 1,
+        ease: "power2.out",
+      })
+    },
+  })
+}, [])
 
 
+  useEffect(() => {
+    // intro animation
+    
 
-    const trigger = ScrollTrigger.create({
-      trigger: "#projectTrigger",
-      start: "top top",
-      end: "+=1500",
-      scrub: true,
-      snap: {
-  snapTo: 1 / (projects.length - 1),
-  duration: 0.3,
-  ease: "power2.out"
-},
-
-      onUpdate: (self) => {
-
-        const index = Math.floor(self.progress * projects.length)
-
-        if (index !== currentIndex.current && index < projects.length) {
-          currentIndex.current = index
-
-          gsap.to(".project-card", {
-            opacity: 0,
-            duration: 0.1,
-            onComplete: () => {
-              setProjectInfo(projects[currentIndex.current])
-              gsap.to(".project-card", { opacity: 1, duration: 0.2 })
-            }
-          })
-        }
-      }
+    projects.forEach((_, index) => {
+      ScrollTrigger.create({
+        trigger: `#project-marker-${index}`,
+        start: "top bottom",
+        end: `bottom bottom`,
+        markers: true,
+        scrub: true,
+        onEnter: () => changeProject(index),
+        onEnterBack: () => changeProject(index),
+      })
     })
 
-    return () => {
-      trigger.kill()
+    
+
+
+    function changeProject(index:number) {
+      if (index === activeIndexRef.current) return
+      activeIndexRef.current = index
+
+
+      gsap.to(cardRef.current, {
+        opacity: 0,
+        y: -20,
+        duration: 0.2,
+        ease: "power2.out",
+        onComplete: () => {
+          setActiveIndex(index)
+
+          gsap.fromTo(
+            cardRef.current,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }
+          )
+        },
+      })
     }
+
+    return () => ScrollTrigger.getAll().forEach(t => t.kill())
   }, [])
 
-  return (
-    <div
-      id="projectTrigger"
-      className="min-h-[300vh] p-8 space-y-6 text-white pt-20"
-    >
-      <div className="sticky top-20 space-y-6">
-        <h1 className="text-4xl font-bold">My Work</h1>
+  const project = projects[activeIndex]
 
-        <div className="project-card bg-gradient-to-br
-  from-[#1a1a1a]
-  via-[#0d0d0d]
-  to-black
-  rounded-2xl
-  border border-white/10 p-6 rounded-2xl space-y-4 flex flex-col items-center">
-          <h2 className="text-3xl font-bold">
-            {projectInfo.name}
+  return (
+    <section  className="relative px-6 pt-28 text-white" id="work">
+      {/* ambient glow */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute top-32 left-1/2 -translate-x-1/2 h-[500px] w-[500px] rounded-full bg-blue-500/10 blur-[160px]" />
+        <div className="absolute bottom-32 right-20 h-[400px] w-[400px] rounded-full bg-cyan-400/10 blur-[140px]" />
+      </div>
+
+      {/* SECTION HEADING (always visible) */}
+      <div className="mb-20 max-w-5xl mx-auto">
+        <h1 className="text-5xl font-semibold tracking-tight">
+          My <span className="text-blue-400">Work</span>
+        </h1>
+        <p className="mt-4 text-white/60 text-lg">
+          A selection of projects that showcase my frontend, backend,
+          and system design skills.
+        </p>
+      </div>
+
+      {/* STICKY PROJECT CARD */}
+      <div className="sticky top-2 flex justify-center z-10">
+      <div id="projectTrigger1">
+        <div
+          ref={cardRef}
+          className="
+            w-full max-w-5xl
+            rounded-3xl
+            bg-white/5 backdrop-blur-2xl
+            border border-white/10
+            p-10
+            shadow-[0_0_80px_rgba(59,130,246,0.15)]
+          "
+        >
+          <h2 className="text-4xl font-semibold text-center mb-6">
+            {project.name}
           </h2>
 
-          <div className="border border-gray-700 rounded-lg overflow-hidden">
+          <div className="overflow-hidden rounded-2xl border border-white/10">
             <Image
-              src={projectInfo.imageUrl}
-              alt="Project Image"
-              width={800}
-              height={800}
+              src={project.imageUrl}
+              alt={project.name}
+              width={1200}
+              height={700}
+              className="object-cover"
             />
           </div>
 
-          <p className="text-center">{projectInfo.description}</p>
+          <p className="mt-6 text-center text-white/70 max-w-3xl mx-auto">
+            {project.description}
+          </p>
 
-          <div className="flex space-x-4">
-            <LucideGithub color="rgb(80, 161, 254)" />
-            <LucideLink color="rgb(80, 161, 254)" />
+          <div className="mt-6 flex justify-center gap-8">
+            <Link href={project.githubUrl} target="_blank">
+            <ActionIcon>
+              <LucideGithub />
+            </ActionIcon>
+            </Link>
+            <Link href={project.liveUrl} target="_blank">
+            <ActionIcon>
+              <LucideLink />
+            </ActionIcon>
+            </Link>
           </div>
         </div>
+        </div>
       </div>
-    </div>
+
+      {/* SCROLL MARKERS (BELOW sticky) */}
+      <div id="projectTrigger2" className="mt-[60vh]">
+        {projects.map((_, i) => (
+          <div
+            key={i}
+            id={`project-marker-${i}`}
+            className="h-[55vh]"
+          />
+        ))}
+      </div>
+    </section>
   )
 }
 
 export default Projects
+

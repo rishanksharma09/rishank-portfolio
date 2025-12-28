@@ -7,6 +7,8 @@ import TechStack from "./sections/TechStack";
 import Experience from "./sections/Experience";
 import timeline from "./constants";
 import { ReactLenis, useLenis } from "lenis/react";
+import Contact from "./sections/Contact";
+import Chatbot from "./components/Chatbot/Chatbot";
 
 const Page = () => {
   useLenis(() => {
@@ -16,8 +18,9 @@ const Page = () => {
     <ReactLenis root options={{ smoothWheel: true }}>
       <Hero />
       <Projects />
-      <TechStack />
       <Experience data={timeline} />
+      <TechStack />
+      <Contact />
     </ReactLenis>
   );
 };

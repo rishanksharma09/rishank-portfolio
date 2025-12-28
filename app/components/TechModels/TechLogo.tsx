@@ -1,61 +1,46 @@
 "use client"
 
-import { useGLTF, OrbitControls, Environment } from "@react-three/drei"
-import { Canvas } from "@react-three/fiber"
+import { useGLTF, Environment } from "@react-three/drei"
+import { Canvas, useFrame } from "@react-three/fiber"
+import { useRef } from "react"
+import * as THREE from "three"
+import { techStack } from "@/app/constants"
 
 type TechLogoProps = {
-  model: string,
-  scale:number
+  model: string
+  scale: number
 }
 
-function TechLogoModel({ model,scale }: TechLogoProps) {
-  const gltf = useGLTF(model)
+function TechLogoModel({ model, scale }: TechLogoProps) {
+  const { scene } = useGLTF(model)
+  const ref = useRef<THREE.Object3D>(null!)
 
-  return <primitive object={gltf.scene} scale={scale} />
-  
+  useFrame(() => {
+    if (!ref.current) return
+    ref.current.rotation.y += 0.01
+  })
+
+  return <primitive ref={ref} object={scene} scale={scale} />
 }
 
+techStack.forEach((tech) => {
+  useGLTF.preload(tech.model)
+})
 
-export default function TechLogo({ model,scale}: TechLogoProps) {
+export default function TechLogo({ model, scale }: TechLogoProps) {
   return (
     <Canvas
-      shadows
-      dpr={[1, 2]}
+      dpr={[1, 1.5]}
       camera={{ position: [0, 0, 5], fov: 45 }}
     >
-      {/* Lights */}
-      <ambientLight intensity={0.2} />
+      {/* Minimal lighting */}
+      <ambientLight intensity={0.6} />
+      <directionalLight position={[2, 2, 5]} intensity={0.8} />
 
-      <spotLight
-        castShadow
-        position={[-5, 6, 5]}
-        angle={0.35}
-        penumbra={1}
-        intensity={2}
-      />
+      {/* Light environment (optional) */}
+      <Environment preset="studio" />
 
-      <directionalLight
-        castShadow
-        position={[-3, 2, -5]}
-        intensity={0.6}
-      />
-      <Environment preset="warehouse"/>
-
-      
-
-    
-
-      {/* Model */}
       <TechLogoModel model={model} scale={scale} />
-
-      {/* Controls */}
-      <OrbitControls
-        autoRotate
-        autoRotateSpeed={3}
-        enableZoom={false}
-        enablePan={true}
-        
-      />
     </Canvas>
   )
 }
