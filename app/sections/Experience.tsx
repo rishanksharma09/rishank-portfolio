@@ -24,18 +24,19 @@ export default function Experience({ data }: PropsArray) {
 
   const [timelineHeight, setTimelineHeight] = useState(0); // Example height, adjust as needed
   useEffect(() => {
-    gsap.from(headingRef.current, {
-      opacity: 0,
-      y: -50,
-      duration: 1,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: headingRef.current,
-        start: "top center",
-        end: "bottom top",
-        scrub: true,
-      },
-    });
+    const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: headingRef.current,
+      start: "top 80%",
+    },
+  });
+    tl.from(
+      "#heading",
+      { opacity: 0, y: -50, duration: 0.8, ease: "power2.out", delay: 0.3}
+    ).from(
+      "#subheading",
+      { opacity: 0, y: -20, duration: 0.8, ease: "power2.out" }
+    );
 
 
   ScrollTrigger.create({
@@ -57,10 +58,10 @@ export default function Experience({ data }: PropsArray) {
 
       {/* heading */}
       <div className="relative z-10 text-center mb-24" ref={headingRef} >
-        <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-white">
+        <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-white" id="heading">
           My <span className="text-blue-500">Learning Journey</span>
         </h1>
-        <p className="mt-4 text-white/60 max-w-xl mx-auto">
+        <p className="mt-4 text-white/60 max-w-xl mx-auto" id="subheading">
           From fundamentals to building real-world interfaces.
         </p>
       </div>

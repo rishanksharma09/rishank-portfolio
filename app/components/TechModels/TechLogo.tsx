@@ -5,6 +5,8 @@ import { Canvas, useFrame } from "@react-three/fiber"
 import { useRef } from "react"
 import * as THREE from "three"
 import { techStack } from "@/app/constants"
+import { OrbitControls } from "@react-three/drei"
+import { styleEffect } from "motion/react"
 
 type TechLogoProps = {
   model: string
@@ -29,7 +31,7 @@ techStack.forEach((tech) => {
 
 export default function TechLogo({ model, scale }: TechLogoProps) {
   return (
-    <Canvas
+    <Canvas className="cursor-grab active:cursor-grabbing" 
       dpr={[1, 1.5]}
       camera={{ position: [0, 0, 5], fov: 45 }}
     >
@@ -41,6 +43,13 @@ export default function TechLogo({ model, scale }: TechLogoProps) {
       <Environment preset="studio" />
 
       <TechLogoModel model={model} scale={scale} />
+      
+      <OrbitControls
+        enableZoom={false}
+        enablePan={false}
+        rotateSpeed={0.6}
+      />
+
     </Canvas>
   )
 }

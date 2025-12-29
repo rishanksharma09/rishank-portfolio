@@ -1,17 +1,61 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState,useRef } from "react";
 import gsap from "gsap";
 import { Button } from "@/components/ui/button";
 import { LucideLink2 } from "lucide-react";
 import Batman from "../components/HeroModels/Batman";
 import { skills } from "../constants";
 import GlowCard from "../components/GlowCard";
+import { useLayoutEffect } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { heroBoxes } from "../constants";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
   const [currentSkillIndex, setCurrentSkillIndex] = useState(0);
+  const headingRef = useRef(null)
+  const headingTextRef = useRef(null)
+  const subheadingTextRef = useRef(null)
+  const contactButtonRef = useRef(null)
+  const heroBoxesRef = useRef<HTMLDivElement[]>([]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+      const gsapContext = gsap.context(() => {
+       const tl = gsap.timeline({});
+      tl.from(
+        headingTextRef.current,
+        { opacity: 0, y: -50, duration: 0.8, ease: "power2.out", delay: 0.6}
+      ).from(
+        subheadingTextRef.current,
+        { opacity: 0, y: -20, duration: 0.8, ease: "power2.out" }
+      ).from(
+        contactButtonRef.current,
+        { opacity: 0, y: 20, duration: 1, ease: "power2.out" }
+      );
+    });
+    heroBoxesRef.current.forEach((box, index) => {
+      gsap.from(
+        box,
+        { opacity: 0, y: 20, duration: 0.4, ease: "power2.out", delay: index * 0.1 ,scrollTrigger: {
+          trigger: box,
+          start: "top 90%",
+        }, }
+      );
+    });
+
+      return () => gsapContext.revert();
+  }, []);
+   
+
+
+  
+
+  useLayoutEffect(() => {
+
+    const gsapContext = gsap.context(() => {
+
     gsap.fromTo(
       "#skill-word",
       { opacity: 0, y: -20 },
@@ -28,6 +72,9 @@ export default function Hero() {
         setCurrentSkillIndex((i) => (i + 1) % skills.length);
       },
     });
+    });
+
+    return () => gsapContext.revert();
   }, [currentSkillIndex]);
 
   return (
@@ -42,8 +89,8 @@ export default function Hero() {
       <main className="relative z-10 max-w-7xl mx-auto px-8 pt-32 grid grid-cols-1 lg:grid-cols-2 items-center gap-10">
 
         {/* LEFT */}
-        <div className="flex flex-col gap-8">
-          <h1 className="text-5xl md:text-6xl xl:text-7xl font-semibold leading-tight tracking-tight text-white">
+        <div className="flex flex-col gap-8" id="left">
+          <h1 className="text-5xl md:text-6xl xl:text-7xl font-semibold leading-tight tracking-tight text-white" ref={headingTextRef}>
             Saving the world <br />
             through my{" "}
             <span
@@ -55,14 +102,14 @@ export default function Hero() {
             skills
           </h1>
 
-          <p className="max-w-xl text-lg text-white/60 leading-relaxed">
+          <p className="max-w-xl text-lg text-white/60 leading-relaxed" ref={subheadingTextRef}>
             Hi, I’m{" "}
             <span className="text-blue-400 font-medium">Rishank Sharma</span>, aka
             Batman — a frontend developer focused on building immersive,
             high-impact web experiences.
           </p>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4" ref={contactButtonRef}>
             <Button
               className="group relative rounded-full px-7 py-6 text-base font-medium bg-blue-600 hover:bg-blue-500 transition shadow-[0_0_30px_rgba(59,130,246,0.45)]"
             >
@@ -88,10 +135,12 @@ export default function Hero() {
 
       {/* STATS */}
       <section className="relative z-10 max-w-7xl mx-auto px-8 mt-24 grid grid-cols-2 lg:grid-cols-4 gap-6">
-        <GlowCard title="200+" subtitle="satisfied clients" />
-        <GlowCard title="150+" subtitle="projects completed" />
-        <GlowCard title="5" subtitle="years experience" />
-        <GlowCard title="24/7" subtitle="availability" />
+        {heroBoxes.map((box,i) => (
+          <div key={i} ref={(el) => {heroBoxesRef.current[i] = el!}}>
+
+          <GlowCard title={box.title} subtitle={box.subTitle} />
+          </div>
+        ))}
       </section>
     </section>
   );

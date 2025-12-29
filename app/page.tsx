@@ -16,6 +16,7 @@ const Page = () => {
 
   return (
     <ReactLenis root options={{ smoothWheel: true }}>
+      <Chatbot />
       <Hero />
       <Projects />
       <Experience data={timeline} />

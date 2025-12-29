@@ -3,15 +3,36 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import MobileNavbar from "./MobileNavbar";
-import { is } from "zod/v4/locales";
+import gsap from "gsap";
+import { useEffect } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function Navbar() {
   // check screen size for responsiveness
   const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+     ScrollTrigger.create({
+    start: 0,
+    end: "max",
+    onUpdate: (self) => {
+      if (self.direction === 1) {
+        gsap.to("#navbar", { y: "-200%", duration: 0.8 })
+      } else {
+        gsap.to("#navbar", { y: 0, duration: 0.8 })
+      }
+    },
+  })
+    gsap.fromTo(
+      "#navbar",
+      { opacity: 0, y: -50 },
+      { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 0.3 }
+    );
+  }, []);
 
   return (
     isMobile ? <MobileNavbar /> :
-    <nav className="fixed top-6 left-1/2 z-50 -translate-x-1/2">
+    <nav className="fixed top-6 left-1/2 z-50 -translate-x-1/2" id="navbar">
       
       {/* outer glow */}
       <div className="absolute inset-0 rounded-full blur-xl 

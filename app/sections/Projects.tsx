@@ -2,104 +2,54 @@
 
 import React, { useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import { LucideGithub, LucideLink } from "lucide-react"
+import { LucideGithub, LucideLink, Scroll } from "lucide-react"
 import { projects } from "../constants"
 import gsap from "gsap"
 import ScrollTrigger from "gsap/ScrollTrigger"
 import ActionIcon from "../components/ActionIcon"
 import Link from "next/link"
+import { useLayoutEffect } from "react"
 
 
 gsap.registerPlugin(ScrollTrigger)
 
 const Projects = () => {
 
+  const headingRef = useRef(null)
+  const headingTextRef = useRef(null)
+  const subheadingTextRef = useRef(null)
+  const projectsRef = useRef<HTMLDivElement>(null)
+
   const activeIndexRef = useRef(0)
   const [activeIndex, setActiveIndex] = useState(0)
   const cardRef = useRef(null)
 
+    useLayoutEffect(() => {
+      const gsapContext = gsap.context(() => {
+       const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: headingRef.current,
+        start: "top 80%",
+      },
+    });
+      tl.from(
+        headingTextRef.current,
+        { opacity: 0, y: -50, duration: 0.8, ease: "power2.out", delay: 0.3}
+      ).from(
+        subheadingTextRef.current,
+        { opacity: 0, y: -20, duration: 0.8, ease: "power2.out" }
+      ).from(
+        projectsRef.current,
+        { opacity: 0, y: 20, duration: 1, ease: "power2.out" }
+      );
+    });
+
+      return () => gsapContext.revert();
+  }, []);
+
+
+  
   useEffect(() => {
-  const navbar = document.querySelector("#navbar");
-
-  ScrollTrigger.create({
-    trigger: "#projectTrigger1", // or the section wrapper
-    start: "top top",
-    end: "bottom top",
-
-    onEnter: () => {
-      gsap.to(navbar, {
-        y: "-300",
-        duration: 0.3,
-        ease: "power2.out",
-      })
-    },
-    onEnterBack: () => {
-      gsap.to(navbar, {
-        y: "-300",
-        duration: 0.3,
-        ease: "power2.out",
-      })
-    },
-
-    onLeaveBack: () => {
-      gsap.to(navbar, {
-        y: "0%",
-        duration: 0.3,
-        ease: "power2.out",
-      })
-    },
-
-    onLeave: () => {
-      gsap.to(navbar, {
-        y: "0%",
-        duration: 0.3,
-        ease: "power2.out",
-      })
-    },
-  })
-
-  ScrollTrigger.create({
-    trigger: "#projectTrigger2", // or the section wrapper
-    start: "top top",
-    end: "bottom top",
-
-    onEnter: () => {
-      gsap.to(navbar, {
-        y: "-300",
-        duration: 1,
-        ease: "power2.out",
-      })
-    },
-    onEnterBack: () => {
-      gsap.to(navbar, {
-        y: "-300",
-        duration: 1,
-        ease: "power2.out",
-      })
-    },
-
-    onLeaveBack: () => {
-      gsap.to(navbar, {
-        y: "0%",
-        duration: 1,
-        ease: "power2.out",
-      })
-    },
-
-    onLeave: () => {
-      gsap.to(navbar, {
-        y: "0%",
-        duration: 1,
-        ease: "power2.out",
-      })
-    },
-  })
-}, [])
-
-
-  useEffect(() => {
-    // intro animation
-    
 
     projects.forEach((_, index) => {
       ScrollTrigger.create({
@@ -151,11 +101,11 @@ const Projects = () => {
       </div>
 
       {/* SECTION HEADING (always visible) */}
-      <div className="mb-20 max-w-5xl mx-auto">
-        <h1 className="text-5xl font-semibold tracking-tight">
+      <div className="mb-20 max-w-5xl mx-auto" ref={headingRef}>
+        <h1 className="text-5xl font-semibold tracking-tight" ref={headingTextRef} >
           My <span className="text-blue-400">Work</span>
         </h1>
-        <p className="mt-4 text-white/60 text-lg">
+        <p className="mt-4 text-white/60 text-lg" ref={subheadingTextRef}>
           A selection of projects that showcase my frontend, backend,
           and system design skills.
         </p>
@@ -163,7 +113,7 @@ const Projects = () => {
 
       {/* STICKY PROJECT CARD */}
       <div className="sticky top-2 flex justify-center z-10">
-      <div id="projectTrigger1">
+      <div id="projectTrigger1" ref={projectsRef}>
         <div
           ref={cardRef}
           className="

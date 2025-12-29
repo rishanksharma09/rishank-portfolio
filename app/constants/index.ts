@@ -7,6 +7,25 @@ const skills: string[] = [
 ]
 export { skills };
 
+const heroBoxes = [
+  {
+    title: "200+",
+    subTitle: "Dsa Questions Solved",
+  },
+  {
+    title: "5+",
+    subTitle: "Projects Completed",
+  },
+  {
+    title: "1+",
+    subTitle: "Year Experience",
+  },
+  {
+    title: "24/7",
+    subTitle: "Availability",
+  }
+];
+export { heroBoxes };
 
 const projects = [
   {
@@ -35,16 +54,16 @@ export { projects };
   
 
 const techStack = [
-  { name: "REACT", model: "/models/react1.glb",scale:3 },
+  { name: "REACT", model: "/models/react.glb",scale:3 },
   
-  { name: "TYPESCRIPT", model: "/models/ts1.glb",scale:0.8 },
+  { name: "TYPESCRIPT", model: "/models/ts.glb",scale:0.8 },
   
-  { name: "NODE-JS", model: "/models/nodejs1.glb",scale:0.8 },
-   { name: "MONGODB", model: "/models/react.glb",scale:3 },
+  { name: "NODE-JS", model: "/models/nodejs.glb",scale:0.8 },
+   { name: "MONGODB", model: "/models/mongodb.glb",scale:0.03 },
   
-  { name: "JAVA", model: "/models/ts.glb",scale:0.8 },
+  { name: "JAVA", model: "/models/java-14.glb",scale:0.025 },
   
-  { name: "C++", model: "/models/nodejs.glb",scale:0.8 },
+  { name: "NEXT.JS", model: "/models/nextjs.glb",scale:0.025 },
  
 ]
 export { techStack };

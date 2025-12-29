@@ -1,10 +1,42 @@
 "use client";
 
 import emailjs from "@emailjs/browser";
+import React from "react";
 import { useRef } from "react";
+import { useLayoutEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function Contact() {
   const formRef = useRef<HTMLFormElement>(null);
+  const headingRef = useRef(null)
+  const headingTextRef = useRef(null)
+  const subheadingTextRef = useRef(null)
+  const tableRef = useRef<HTMLDivElement>(null)
+
+  useLayoutEffect(() => {
+      const gsapContext = gsap.context(() => {
+       const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: headingRef.current,
+        start: "top 80%",
+      },
+    });
+      tl.from(
+        headingTextRef.current,
+        { opacity: 0, y: -50, duration: 0.8, ease: "power2.out", delay: 0.3}
+      ).from(
+        subheadingTextRef.current,
+        { opacity: 0, y: -20, duration: 0.8, ease: "power2.out" }
+      ).from(
+        tableRef.current,
+        { opacity: 0, y: 20, duration: 1, ease: "power2.out" }
+      );
+    });
+
+      return () => gsapContext.revert();
+  }, []);
+
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,18 +64,18 @@ export default function Contact() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(37,99,235,0.15),transparent_40%)]" />
 
       {/* Heading */}
-      <div className="relative z-10 text-center mb-20">
-        <h2 className="text-4xl md:text-5xl font-semibold tracking-tight">
+      <div className="relative z-10 text-center mb-20" ref={headingRef} >
+        <h2 className="text-4xl md:text-5xl font-semibold tracking-tight" ref={headingTextRef}>
           Let’s build something <span className="text-blue-500">impactful</span>
         </h2>
-        <p className="mt-4 text-white/60 max-w-xl mx-auto">
+        <p className="mt-4 text-white/60 max-w-xl mx-auto" ref={subheadingTextRef}>
           Have an idea, opportunity, or just want to talk frontend?
           My inbox is always open.
         </p>
       </div>
 
       {/* Main Grid */}
-      <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-14 px-6">
+      <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-14 px-6" ref={tableRef}>
 
         {/* LEFT – FORM */}
         <div className="relative rounded-2xl p-8 bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_0_60px_rgba(59,130,246,0.15)]">
