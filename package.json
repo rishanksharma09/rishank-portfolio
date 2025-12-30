@@ -46,6 +46,7 @@
     "postprocessing": "^6.38.2",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "react-toastify": "^11.0.5",
     "shiki": "^3.20.0",
     "streamdown": "^1.6.10",
     "tailwind-merge": "^3.4.0",

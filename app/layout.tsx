@@ -1,9 +1,13 @@
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Background from "./components/Background";
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import { ToastContainer, Bounce } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 
@@ -34,15 +38,29 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black`}
       >
-        
-      
-          <Navbar />
-          
+
+
+        <Navbar />
+
         {children}
+        <Footer />
 
-      <Footer />
 
-      
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+          transition={Bounce}
+        />
+
+
 
       </body>
     </html>

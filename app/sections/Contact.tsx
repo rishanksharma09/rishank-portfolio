@@ -6,6 +6,7 @@ import { useRef } from "react";
 import { useLayoutEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ToastContainer, toast, Bounce } from 'react-toastify';
 
 export default function Contact() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -14,17 +15,18 @@ export default function Contact() {
   const subheadingTextRef = useRef(null)
   const tableRef = useRef<HTMLDivElement>(null)
 
+
   useLayoutEffect(() => {
-      const gsapContext = gsap.context(() => {
-       const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: headingRef.current,
-        start: "top 80%",
-      },
-    });
+    const gsapContext = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: "top 80%",
+        },
+      });
       tl.from(
         headingTextRef.current,
-        { opacity: 0, y: -50, duration: 0.8, ease: "power2.out", delay: 0.3}
+        { opacity: 0, y: -50, duration: 0.8, ease: "power2.out", delay: 0.3 }
       ).from(
         subheadingTextRef.current,
         { opacity: 0, y: -20, duration: 0.8, ease: "power2.out" }
@@ -34,31 +36,62 @@ export default function Contact() {
       );
     });
 
-      return () => gsapContext.revert();
+    return () => gsapContext.revert();
   }, []);
 
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    emailjs.sendForm(
-      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID as string,
-      "template_7za11ab",
-      formRef.current as HTMLFormElement,
-      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY as string
-    );
+    try {
+      await Promise.all([
+        emailjs.sendForm(
+          process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID as string,
+          "template_7za11ab",
+          formRef.current as HTMLFormElement,
+          process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY as string
+        ),
+        emailjs.sendForm(
+          process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID as string,
+          "template_hn2sjta",
+          formRef.current as HTMLFormElement,
+          process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY as string
+        ),
+      ]);
 
-    emailjs.sendForm(
-      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID as string,
-      "template_hn2sjta",
-      formRef.current as HTMLFormElement,
-      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY as string
-    );
+      toast.success('Message sent successfully!', {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+
+      formRef.current?.reset();
+    } catch (error) {
+      console.error(error);
+      toast.error('Something went wrong. Please try again.', {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+    }
+
   };
 
   return (
     <section className="relative w-full bg-[#05070c] text-white py-28 overflow-hidden " id="contact">
-      
+
       {/* background glow */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(59,130,246,0.12),transparent_40%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(37,99,235,0.15),transparent_40%)]" />
@@ -79,9 +112,9 @@ export default function Contact() {
 
         {/* LEFT – FORM */}
         <div className="relative rounded-2xl p-8 bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_0_60px_rgba(59,130,246,0.15)]">
-          
+
           <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
-            
+
             <Field label="Your name">
               <input name="name" placeholder="John Doe" />
             </Field>
@@ -139,16 +172,16 @@ function Field({
       <label className="block mb-2 text-sm text-white/70">{label}</label>
       {children &&
         (children as any).type === "textarea" ? (
-          <textarea
-            {...(children as any).props}
-            className="w-full rounded-xl bg-black/40 border border-white/10 px-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
-          />
-        ) : (
-          <input
-            {...(children as any).props}
-            className="w-full rounded-xl bg-black/40 border border-white/10 px-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
-          />
-        )}
+        <textarea
+          {...(children as any).props}
+          className="w-full rounded-xl bg-black/40 border border-white/10 px-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
+        />
+      ) : (
+        <input
+          {...(children as any).props}
+          className="w-full rounded-xl bg-black/40 border border-white/10 px-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
+        />
+      )}
     </div>
   );
 }

@@ -11,6 +11,7 @@ export default function Navbar() {
   // check screen size for responsiveness
   const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
   useEffect(() => {
+    if (isMobile) return; 
     gsap.registerPlugin(ScrollTrigger);
      ScrollTrigger.create({
     start: 0,
