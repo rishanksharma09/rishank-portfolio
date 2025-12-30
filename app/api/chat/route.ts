@@ -1,27 +1,16 @@
-// import { streamText, UIMessage, convertToModelMessages } from 'ai'
-// import { google } from '@ai-sdk/google'
+import { google } from "@ai-sdk/google";
+import { convertToModelMessages, streamText, UIMessage } from "ai";
 
-// // Allow streaming responses up to 30 seconds
-// export const maxDuration = 30
-// export const runtime = 'edge' // Gemini works best on Edge
+export const maxDuration = 30;
 
-// export async function POST(req: Request) {
-//   const {
-//     messages,
-//     model,
-//   }: {
-//     messages: UIMessage[]
-//     model: string
-//   } = await req.json()
+export async function POST(req: Request) {
+  const { messages }: { messages: UIMessage[] } = await req.json();
 
-//   const result = streamText({
-//     model: google(model), // ✅ Gemini model instance
-//     messages: convertToModelMessages(messages),
-//     system: 'You are a helpful assistant that can answer questions and help with tasks',
-//   })
+  const result = streamText({
+    model: google("gemini-3-flash-preview"),
+    system: "You are a helpful assistant.",
+    messages: await convertToModelMessages(messages),
+  });
 
-//   return result.toUIMessageStreamResponse({
-//     sendSources: false,   // Gemini doesn't return web citations
-//     sendReasoning: false, // Gemini reasoning is not streamable
-//   })
-// }
+  return result.toUIMessageStreamResponse();
+}
