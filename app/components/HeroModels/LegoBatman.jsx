@@ -4,7 +4,7 @@ import { forwardRef } from "react";
 import { useGLTF } from "@react-three/drei";
 
 export const Model = forwardRef(function Model(props, ref) {
-  const { nodes, materials } = useGLTF("/models/legoBatman.glb");
+  const { nodes, materials } = useGLTF("/3d/legoBatman.glb");
 
   return (
     <group ref={ref} {...props} dispose={null}>
@@ -21,4 +21,4 @@ export const Model = forwardRef(function Model(props, ref) {
   );
 });
 
-useGLTF.preload("/models/legoBatman.glb");
+useGLTF.preload("/3d/legoBatman.glb");

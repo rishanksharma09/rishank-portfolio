@@ -9,7 +9,7 @@ export default function BatmanModel(
 ): JSX.Element {
   const groupRef = useRef<THREE.Group>(null!);
 
-  const gltf = useGLTF("/models/batmantexturedrigged.glb");
+  const gltf = useGLTF("/3d/batmantexturedrigged.glb");
 
   const nodes = gltf.nodes as Record<string, THREE.Object3D>;
   const materials = gltf.materials as Record<
@@ -63,4 +63,4 @@ export default function BatmanModel(
   );
 }
 
-useGLTF.preload("/models/batmantexturedrigged.glb");
+useGLTF.preload("/3d/batmantexturedrigged.glb");

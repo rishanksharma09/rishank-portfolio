@@ -54,16 +54,16 @@ export { projects };
   
 
 const techStack = [
-  { name: "REACT", model: "/models/react.glb",scale:3 },
+  { name: "REACT", model: "/3d/react.glb",scale:3 },
   
-  { name: "TYPESCRIPT", model: "/models/ts.glb",scale:0.8 },
+  { name: "TYPESCRIPT", model: "/3d/ts.glb",scale:0.8 },
   
-  { name: "NODE-JS", model: "/models/nodejs.glb",scale:0.8 },
-   { name: "MONGODB", model: "/models/mongodb.glb",scale:0.03 },
-  
-  { name: "JAVA", model: "/models/java-14.glb",scale:0.025 },
-  
-  { name: "NEXT.JS", model: "/models/nextjs.glb",scale:0.025 },
+  { name: "NODE-JS", model: "/3d/nodejs.glb",scale:0.8 },
+   { name: "MONGODB", model: "/3d/mongodb.glb",scale:0.03 },
+
+  { name: "JAVA", model: "/3d/java-14.glb",scale:0.025 },
+
+  { name: "NEXT.JS", model: "/3d/nextjs.glb",scale:0.025 },
  
 ]
 export { techStack };
