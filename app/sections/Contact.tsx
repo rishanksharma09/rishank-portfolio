@@ -7,8 +7,14 @@ import { useLayoutEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ToastContainer, toast, Bounce } from 'react-toastify';
+import dynamic from "next/dynamic";
 
 export default function Contact() {
+
+  const RobotModel = dynamic(() => import("../components/RobotModel/RobotScene"), {
+    ssr: false,
+  });
+
   const formRef = useRef<HTMLFormElement>(null);
   const headingRef = useRef(null)
   const headingTextRef = useRef(null)
@@ -147,7 +153,9 @@ export default function Contact() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.2),transparent_60%)]" />
 
           {/* PLACE YOUR CANVAS HERE */}
-          {/* <Canvas> <Your3DModel /> </Canvas> */}
+          <div className="relative w-full h-full cursor-grab active:cursor-grabbing">
+            <RobotModel />
+          </div>
 
           <div className="absolute bottom-4 left-4 text-xs text-white/40">
             Interactive 3D experience

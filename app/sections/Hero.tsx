@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState,useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import gsap from "gsap";
 import { Button } from "@/components/ui/button";
 import { LucideLink2 } from "lucide-react";
@@ -22,11 +22,11 @@ export default function Hero() {
   const heroBoxesRef = useRef<HTMLDivElement[]>([]);
 
   useLayoutEffect(() => {
-      const gsapContext = gsap.context(() => {
-       const tl = gsap.timeline({});
+    const gsapContext = gsap.context(() => {
+      const tl = gsap.timeline({});
       tl.from(
         headingTextRef.current,
-        { opacity: 0, y: -50, duration: 0.8, ease: "power2.out", delay: 0.6}
+        { opacity: 0, y: -50, duration: 0.8, ease: "power2.out", delay: 0.6 }
       ).from(
         subheadingTextRef.current,
         { opacity: 0, y: -20, duration: 0.8, ease: "power2.out" }
@@ -38,40 +38,42 @@ export default function Hero() {
     heroBoxesRef.current.forEach((box, index) => {
       gsap.from(
         box,
-        { opacity: 0, y: 20, duration: 0.4, ease: "power2.out", delay: index * 0.1 ,scrollTrigger: {
-          trigger: box,
-          start: "top 90%",
-        }, }
+        {
+          opacity: 0, y: 20, duration: 0.4, ease: "power2.out", delay: index * 0.1, scrollTrigger: {
+            trigger: box,
+            start: "top 90%",
+          },
+        }
       );
     });
 
-      return () => gsapContext.revert();
+    return () => gsapContext.revert();
   }, []);
-   
 
 
-  
+
+
 
   useLayoutEffect(() => {
 
     const gsapContext = gsap.context(() => {
 
-    gsap.fromTo(
-      "#skill-word",
-      { opacity: 0, y: -20 },
-      { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }
-    );
+      gsap.fromTo(
+        "#skill-word",
+        { opacity: 0, y: -20 },
+        { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }
+      );
 
-    gsap.to("#skill-word", {
-      opacity: 0,
-      y: 20,
-      duration: 0.4,
-      ease: "power2.in",
-      delay: 2,
-      onComplete: () => {
-        setCurrentSkillIndex((i) => (i + 1) % skills.length);
-      },
-    });
+      gsap.to("#skill-word", {
+        opacity: 0,
+        y: 20,
+        duration: 0.4,
+        ease: "power2.in",
+        delay: 2,
+        onComplete: () => {
+          setCurrentSkillIndex((i) => (i + 1) % skills.length);
+        },
+      });
     });
 
     return () => gsapContext.revert();
@@ -135,10 +137,10 @@ export default function Hero() {
 
       {/* STATS */}
       <section className="relative z-10 max-w-7xl mx-auto px-8 mt-24 grid grid-cols-2 lg:grid-cols-4 gap-6">
-        {heroBoxes.map((box,i) => (
-          <div key={i} ref={(el) => {heroBoxesRef.current[i] = el!}}>
+        {heroBoxes.map((box, i) => (
+          <div key={i} ref={(el) => { heroBoxesRef.current[i] = el! }}>
 
-          <GlowCard title={box.title} subtitle={box.subTitle} />
+            <GlowCard title={box.title} subtitle={box.subTitle} />
           </div>
         ))}
       </section>
