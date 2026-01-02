@@ -32,6 +32,7 @@ export function Model(props) {
 
    return () => idle?.fadeOut(0.5);
  }, [actions]);
+ 
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Sketchfab_Scene">

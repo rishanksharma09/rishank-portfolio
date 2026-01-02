@@ -10,8 +10,12 @@ import GlowCard from "../components/GlowCard";
 import { useLayoutEffect } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { heroBoxes } from "../constants";
+import dynamic from "next/dynamic";
 
 gsap.registerPlugin(ScrollTrigger);
+const BatmanModel = dynamic(() => import("../components/HeroModels/Batman"), {
+  ssr: false,
+});
 
 export default function Hero() {
   const [currentSkillIndex, setCurrentSkillIndex] = useState(0);
@@ -20,6 +24,7 @@ export default function Hero() {
   const subheadingTextRef = useRef(null)
   const contactButtonRef = useRef(null)
   const heroBoxesRef = useRef<HTMLDivElement[]>([]);
+
 
   useLayoutEffect(() => {
     const gsapContext = gsap.context(() => {
@@ -122,17 +127,18 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* RIGHT – 3D STAGE */}
-        <div className="relative h-[520px] w-full flex items-center justify-center pointer-events-none">
 
-          {/* batman glow */}
-          <div className="absolute w-[480px] h-[480px] bg-[radial-gradient(circle,rgba(59,130,246,0.25),transparent_65%)] blur-3xl" />
 
-          {/* 3D MODEL */}
-          <div className="relative w-full h-full">
-            <Batman />
-          </div>
+
+        {/* MODEL */}
+        <div className="relative w-full h-full cursor-grab active:cursor-grabbing" id="right">
+          <BatmanModel />
         </div>
+
+
+
+
+
       </main>
 
       {/* STATS */}

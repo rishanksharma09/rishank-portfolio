@@ -1,66 +1,84 @@
 "use client";
 
+import React, { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Environment,Center } from "@react-three/drei";
-// import  BatmanModel  from "./BatmanModel";
-import { EffectComposer, FXAA } from "@react-three/postprocessing";
+import {
+  Environment,
+  OrbitControls,
+  ContactShadows,
+} from "@react-three/drei";
+import { EffectComposer, Bloom } from "@react-three/postprocessing";
+import { Model } from "./Fan";
+import { useFrame } from "@react-three/fiber";
 
-import {Model} from "./LegoBatman"
-
-
-
-
-export default function Batman() {
+const EnergyScene = () => {
   return (
     <Canvas
-      shadows
-      dpr={[1, 2]}
-      gl={{ antialias: false }}
-      camera={{ position: [0, -20, 8], fov: 25 }}
-    >
-      {/* Ambient fill */}
-      <ambientLight intensity={0.8} />
-
-      {/* Key light */}
-      <spotLight
-        castShadow
-        position={[-5, 6, 5]}
-        angle={0.35}
-        penumbra={1}
-        intensity={2}
-      />
-
-      {/* Rim light (important) */}
-      <directionalLight
-        castShadow
-        position={[-3, 2, -5]}
-        intensity={1}
-      />
-
-      {/* HDR environment */}
-      <Environment preset="city" />
+  shadows
+  dpr={[1, 2]}
+  camera={{ position: [0, 1.1, 8.5], fov: 50 }}
+  gl={{ antialias: true, toneMappingExposure: 0.9 }}
+>
+  <ambientLight intensity={0.1} />
 
 
 
-      {/* Batman */}
-      {/* <BatmanModel scale={2.2} /> */}
-      <Center>
+  <directionalLight
+    castShadow
+    position={[3, 6, 3]}
+    intensity={0.8}
+  />
 
-      {/* <Model scale={0.15} /> */}
-      </Center>
-       <EffectComposer multisampling={0}>
-        <FXAA />
-      </EffectComposer>
+  <directionalLight
+    position={[-2, 2, 4]}
+    intensity={0.35}
+  />
 
-      {/* Camera controls */}
-      <OrbitControls
-        // autoRotate
-        // autoRotateSpeed={-1}
-        enableZoom={false}
-        enablePan={false}
-        minPolarAngle={Math.PI / 2.2}
-        maxPolarAngle={Math.PI / 2.2}
-      />
-    </Canvas>
+  <directionalLight
+    position={[-4, 3, -4]}
+    intensity={0.5}
+    color="#6ea8ff"
+  />
+
+  <pointLight
+    position={[0, 0.4, 0]}
+    intensity={1.4}
+    distance={7}
+    decay={2}
+    color="#3b82f6"
+  />
+
+  <Environment preset="city" />
+
+  <Suspense fallback={null}>
+    <Model scale={0.3} position={[0, 1, 0]} />
+  </Suspense>
+
+  <mesh position={[0, 0.4, 0]}>
+    <sphereGeometry args={[1.2, 32, 32]} />
+    <meshStandardMaterial
+      color="#3b82f6"
+      emissive="#3b82f6"
+      emissiveIntensity={0.15}
+      transparent
+      opacity={0.05}
+    />
+  </mesh>
+
+  <ContactShadows
+    position={[0, -1.1, 0]}
+    opacity={0.6}
+    scale={6}
+    blur={2}
+    far={3}
+  />
+
+
+
+  <OrbitControls enableZoom={false} enablePan={false} autoRotate={true} rotateSpeed={0.1} />
+</Canvas>
+
   );
-}
+};
+
+export default EnergyScene;
