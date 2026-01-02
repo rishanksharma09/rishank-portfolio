@@ -6,6 +6,8 @@ import MobileNavbar from "./MobileNavbar";
 import gsap from "gsap";
 import { useEffect } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Home } from "lucide-react";
+import Link from "next/link";
 
 export default function Navbar() {
   // check screen size for responsiveness
@@ -53,15 +55,18 @@ export default function Navbar() {
         "
       >
         {/* Logo */}
-        <div className="relative flex items-center gap-2 group cursor-pointer">
+        <div className="relative flex items-center gap-1 group cursor-pointer">
+          <Link href="#home">
+
           <Image
-            src="/images/logo.png"
-            alt="Logo"
-            width={42}
-            height={42}
+            src="/images/home.svg"
+            alt="home"
+            width={25}
+            height={25}
             className="invert opacity-90 group-hover:opacity-100 transition"
-          />
+            />
           <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-blue-500 opacity-0 group-hover:opacity-100 blur-sm transition" />
+            </Link>
         </div>
 
         {/* Divider */}

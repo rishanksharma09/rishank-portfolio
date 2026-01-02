@@ -75,7 +75,7 @@ const EnergyScene = () => {
 
 
 
-  <OrbitControls enableZoom={false} enablePan={false} autoRotate={true} rotateSpeed={0.1} />
+  <OrbitControls enableZoom={false} enablePan={false}  />
 </Canvas>
 
   );

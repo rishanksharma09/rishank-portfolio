@@ -85,7 +85,7 @@ export default function Hero() {
   }, [currentSkillIndex]);
 
   return (
-    <section className="relative w-full min-h-screen bg-[#05070c] overflow-hidden">
+    <section className="relative w-full min-h-screen bg-[#05070c] overflow-hidden" id="home">
 
       {/* background glow layers */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(59,130,246,0.18),transparent_40%)]" />
@@ -111,8 +111,7 @@ export default function Hero() {
 
           <p className="max-w-xl text-lg text-white/60 leading-relaxed" ref={subheadingTextRef}>
             Hi, I’m{" "}
-            <span className="text-blue-400 font-medium">Rishank Sharma</span>, aka
-            Batman — a frontend developer focused on building immersive,
+            <span className="text-blue-400 font-medium">Rishank Sharma</span>, — a Fullstack developer focused on building modern, performant, and
             high-impact web experiences.
           </p>
 
