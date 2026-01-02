@@ -90,7 +90,7 @@ export default function Hero() {
 
         {/* LEFT */}
         <div className="flex flex-col gap-8" id="left">
-          <h1 className="text-5xl md:text-6xl xl:text-7xl font-semibold leading-tight tracking-tight text-white" ref={headingTextRef}>
+          <h1 className="text-5xl md:text-6xl xl:text-7xl font-bold leading-tight text-white" ref={headingTextRef}>
             Saving the world <br />
             through my{" "}
             <span
