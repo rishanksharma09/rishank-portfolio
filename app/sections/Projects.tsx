@@ -100,7 +100,7 @@ const Projects = () => {
         <div className="absolute bottom-32 right-20 h-[400px] w-[400px] rounded-full bg-cyan-400/10 blur-[140px]" />
       </div>
 
-      {/* SECTION HEADING (always visible) */}
+     
       <div className="mb-20 max-w-5xl mx-auto" ref={headingRef}>
         <h1 className="text-5xl font-semibold tracking-tight" ref={headingTextRef} >
           My <span className="text-blue-400">Work</span>
@@ -111,7 +111,7 @@ const Projects = () => {
         </p>
       </div>
 
-      {/* STICKY PROJECT CARD */}
+      
       <div className="sticky top-2 flex justify-center z-10">
       <div id="projectTrigger1" ref={projectsRef}>
         <div
@@ -160,7 +160,7 @@ const Projects = () => {
         </div>
       </div>
 
-      {/* SCROLL MARKERS (BELOW sticky) */}
+    
       <div id="projectTrigger2" className="mt-[60vh]">
         {projects.map((_, i) => (
           <div

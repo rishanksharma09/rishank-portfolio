@@ -108,7 +108,7 @@ export default function Contact() {
           Let’s build something <span className="text-blue-500">impactful</span>
         </h2>
         <p className="mt-4 text-white/60 max-w-xl mx-auto" ref={subheadingTextRef}>
-          Have an idea, opportunity, or just want to talk frontend?
+          Have an idea, opportunity, or just want to talk fullstack?
           My inbox is always open.
         </p>
       </div>
@@ -135,7 +135,7 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="group w-full relative overflow-hidden rounded-xl bg-blue-600 py-3 font-medium transition hover:bg-blue-500"
+              className="cursor-pointer group w-full relative overflow-hidden rounded-xl bg-blue-600 py-3 font-medium transition hover:bg-blue-500"
             >
               <span className="relative z-10">Send message</span>
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-[linear-gradient(120deg,transparent,rgba(255,255,255,0.2),transparent)] transition" />
