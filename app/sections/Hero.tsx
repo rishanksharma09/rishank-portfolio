@@ -4,16 +4,18 @@ import { useEffect, useState, useRef } from "react";
 import gsap from "gsap";
 import { Button } from "@/components/ui/button";
 import { LucideLink2 } from "lucide-react";
-import Batman from "../components/HeroModels/Batman";
+import Batman from "../components/HeroModels/EnergyScene";
 import { skills } from "../constants";
 import GlowCard from "../components/GlowCard";
 import { useLayoutEffect } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { heroBoxes } from "../constants";
 import dynamic from "next/dynamic";
+import EnergyScene from "../components/HeroModels/EnergyScene";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
-const BatmanModel = dynamic(() => import("../components/HeroModels/Batman"), {
+const EnergySceneModel = dynamic(() => import("../components/HeroModels/EnergyScene"), {
   ssr: false,
 });
 
@@ -87,12 +89,12 @@ export default function Hero() {
   return (
     <section className="relative w-full min-h-screen bg-[#05070c] overflow-hidden" id="home">
 
-      {/* background glow layers */}
+      
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(59,130,246,0.18),transparent_40%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_60%,rgba(37,99,235,0.15),transparent_45%)]" />
       <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black" />
 
-      {/* HERO CONTENT */}
+      
       <main className="relative z-10 max-w-7xl mx-auto px-8 pt-32 grid grid-cols-1 lg:grid-cols-2 items-center gap-10">
 
         {/* LEFT */}
@@ -111,18 +113,20 @@ export default function Hero() {
 
           <p className="max-w-xl text-lg text-white/60 leading-relaxed" ref={subheadingTextRef}>
             Hi, I’m{" "}
-            <span className="text-blue-400 font-medium">Rishank Sharma</span>, — a Fullstack developer focused on building modern, performant, and
+            <span className="text-blue-400 font-medium">Rishank Sharma</span> — a Fullstack developer focused on building modern, performant, and
             high-impact web experiences.
           </p>
 
           <div className="flex items-center gap-4" ref={contactButtonRef}>
+            <Link href="https://drive.google.com/file/d/15vVpfvmzeM7et5m6ylpBHonYIIn4N4Uj/view?usp=sharing" target="_blank">
             <Button
-              className="group relative rounded-full px-7 py-6 text-base font-medium bg-blue-600 hover:bg-blue-500 transition shadow-[0_0_30px_rgba(59,130,246,0.45)]"
-            >
+              className=" cursor-pointer group relative rounded-full px-7 py-6 text-base font-medium bg-blue-600 hover:bg-blue-500 transition shadow-[0_0_30px_rgba(59,130,246,0.45)]"
+              >
               View CV
               <LucideLink2 className="ml-2 h-4 w-4 opacity-80" />
               <span className="absolute inset-0 rounded-full bg-[linear-gradient(120deg,transparent,rgba(255,255,255,0.25),transparent)] opacity-0 group-hover:opacity-100 transition" />
             </Button>
+              </Link>
           </div>
         </div>
 
@@ -131,7 +135,7 @@ export default function Hero() {
 
         {/* MODEL */}
         <div className="relative w-full h-full cursor-grab active:cursor-grabbing" id="right">
-          <BatmanModel />
+          <EnergySceneModel />
         </div>
 
 

@@ -149,11 +149,12 @@ const Projects = () => {
               <LucideGithub />
             </ActionIcon>
             </Link>
-            <Link href={project.liveUrl} target="_blank">
+
+           {project.deployed && <Link href={project.liveUrl} target="_blank">
             <ActionIcon>
               <LucideLink />
             </ActionIcon>
-            </Link>
+            </Link>}
           </div>
         </div>
         </div>
