@@ -9,7 +9,6 @@ gsap.registerPlugin(ScrollTrigger);
 type Props = {
   year: string;
   title: string;
-  company: string;
   description: string;
 };
 
@@ -119,10 +118,6 @@ export default function Experience({ data }: PropsArray) {
                 <h3 className="mt-2 text-xl font-semibold text-blue-400">
                   {item.title}
                 </h3>
-
-                <p className="text-sm text-white/50">
-                  {item.company}
-                </p>
 
                 <p className="mt-4 text-white/70 leading-relaxed">
                   {item.description}
