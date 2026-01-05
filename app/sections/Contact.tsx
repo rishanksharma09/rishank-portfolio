@@ -1,7 +1,7 @@
 "use client";
 
 import emailjs from "@emailjs/browser";
-import React from "react";
+import React, { useState } from "react";
 import { useRef } from "react";
 import { useLayoutEffect } from "react";
 import gsap from "gsap";
@@ -20,6 +20,7 @@ export default function Contact() {
   const headingTextRef = useRef(null)
   const subheadingTextRef = useRef(null)
   const tableRef = useRef<HTMLDivElement>(null)
+  const [disableSubmit, setDisableSubmit] = useState(false)
 
 
   useLayoutEffect(() => {
@@ -48,6 +49,7 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setDisableSubmit(true);
 
     try {
       await Promise.all([
@@ -76,8 +78,8 @@ export default function Contact() {
         theme: "dark",
         transition: Bounce,
       });
-
       formRef.current?.reset();
+      setDisableSubmit(false)
     } catch (error) {
       console.error(error);
       toast.error('Something went wrong. Please try again.', {
@@ -91,6 +93,7 @@ export default function Contact() {
         theme: "dark",
         transition: Bounce,
       });
+      setDisableSubmit(false)
     }
 
   };
@@ -135,10 +138,25 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="cursor-pointer group w-full relative overflow-hidden rounded-xl bg-blue-600 py-3 font-medium transition hover:bg-blue-500"
+              disabled={disableSubmit}
+              className="group w-full relative overflow-hidden rounded-xl
+    bg-blue-600 py-3 font-medium transition cursor-pointer
+    hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-80"
             >
-              <span className="relative z-10">Send message</span>
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-[linear-gradient(120deg,transparent,rgba(255,255,255,0.2),transparent)] transition" />
+              {disableSubmit ? (
+                <span className="relative z-10 flex items-center justify-center gap-2">
+                  <span className="h-4 w-4 animate-spin rounded-full
+        border-2 border-white/40 border-t-white" />
+                  Sending…
+                </span>
+              ) : (
+                <span className="relative z-10">Send message</span>
+              )}
+
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100
+    bg-[linear-gradient(120deg,transparent,rgba(255,255,255,0.2),transparent)]
+    transition"
+              />
             </button>
           </form>
         </div>
