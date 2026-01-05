@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function MobileNavbar() {
   const [open, setOpen] = useState(false);
@@ -13,13 +14,7 @@ export default function MobileNavbar() {
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 
         bg-[#0b0f19]/70 backdrop-blur-xl border-b border-white/10 sm:hidden">
 
-        <Image
-          src="/images/logo.png"
-          alt="Logo"
-          width={36}
-          height={36}
-          className="invert opacity-90"
-        />
+       
 
         <button
           onClick={() => setOpen(true)}
