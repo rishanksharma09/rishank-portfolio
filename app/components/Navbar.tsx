@@ -56,7 +56,7 @@ export default function Navbar() {
       >
         
         <div className="relative flex items-center gap-1 group cursor-pointer">
-          <Link href="#home">
+          <a href="#home">
 
           <Image
             src="/images/home.svg"
@@ -66,7 +66,7 @@ export default function Navbar() {
             className="invert opacity-90 group-hover:opacity-100 transition"
             />
           <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-blue-500 opacity-0 group-hover:opacity-100 blur-sm transition" />
-            </Link>
+            </a>
         </div>
 
         
