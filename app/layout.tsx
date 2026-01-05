@@ -23,8 +23,17 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Rishank Sharma | Full Stack Developer",
-  description: "I build modern, interactive web applications with a focus on clean design, performance, and continuous learning.",
-};
+  description:
+    "I build modern, interactive web applications with a focus on clean design, performance, and continuous learning.",
+
+  openGraph: {
+    title: "Rishank Sharma | Full Stack Developer",
+    description:
+      "Explore projects, skills, and interactive web experiences built by Rishank Sharma.",
+    url: "https://rishanksharma.vercel.app",
+    siteName: "Rishank Sharma | Full Stack Developer",
+    type: "website",
+  },}
 
 export default function RootLayout({
   children,
