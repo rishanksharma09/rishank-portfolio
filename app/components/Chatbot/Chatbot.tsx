@@ -141,9 +141,9 @@ export default function ChatbotUI() {
               </span>
             </div>
 
-            <button
+            <button 
               onClick={handleClose}
-              className="text-white/60 hover:text-white transition"
+              className="text-white/60 hover:text-white transition cursor-pointer"
             >
               ✕
             </button>
