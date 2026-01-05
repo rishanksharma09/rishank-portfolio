@@ -17,10 +17,10 @@ const RobotScene = () => {
       dpr={[1, 1.5]}
       camera={{ position: [0, 1.8, 4.2], fov: 38 }}
     >
-      {/* Ambient fill */}
+      
       <ambientLight intensity={0.25} />
 
-      {/* Key light */}
+     
       <directionalLight
         castShadow
         position={[3, 6, 3]}
@@ -29,13 +29,13 @@ const RobotScene = () => {
         shadow-mapSize-height={1024}
       />
 
-      {/* Rim light (back edge) */}
+     
       <directionalLight
         position={[-3, 3, -3]}
         intensity={0.8}
       />
 
-      {/* Soft top light */}
+     
       <spotLight
         position={[0, 6, 0]}
         intensity={0.4}
@@ -43,14 +43,14 @@ const RobotScene = () => {
         penumbra={1}
       />
 
-      {/* Studio reflections */}
+      
       <Environment preset="studio" />
 
       <Suspense fallback={null}>
         <Model scale={1.2} position={[0, -1.25 , 0]} />
       </Suspense>
 
-      {/* Stable ground shadow */}
+      
       <ContactShadows
         position={[0, -1.1, 0]}
         opacity={0.45}

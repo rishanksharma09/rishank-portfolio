@@ -105,7 +105,7 @@ export default function Contact() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(59,130,246,0.12),transparent_40%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(37,99,235,0.15),transparent_40%)]" />
 
-      {/* Heading */}
+      
       <div className="relative z-10 text-center mb-20" ref={headingRef} >
         <h2 className="text-4xl md:text-5xl font-semibold tracking-tight" ref={headingTextRef}>
           Let’s build something <span className="text-blue-500">impactful</span>
@@ -116,10 +116,10 @@ export default function Contact() {
         </p>
       </div>
 
-      {/* Main Grid */}
+      
       <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-14 px-6" ref={tableRef}>
 
-        {/* LEFT – FORM */}
+        
         <div className="relative rounded-2xl p-8 bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_0_60px_rgba(59,130,246,0.15)]">
 
           <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
@@ -161,16 +161,16 @@ export default function Contact() {
           </form>
         </div>
 
-        {/* RIGHT – 3D MODEL STAGE */}
+        
         <div className="relative rounded-2xl border border-white/10 bg-[#0b0f19] overflow-hidden">
 
-          {/* grid overlay */}
+          
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px]" />
 
-          {/* glow */}
+         
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.2),transparent_60%)]" />
 
-          {/* PLACE YOUR CANVAS HERE */}
+          
           <div className="relative w-full h-full cursor-grab active:cursor-grabbing">
             <RobotModel />
           </div>
@@ -185,7 +185,7 @@ export default function Contact() {
   );
 }
 
-/* Reusable Field */
+
 function Field({
   label,
   children,

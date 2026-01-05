@@ -33,7 +33,7 @@ export default function SocialIcon({
         bg-[radial-gradient(circle,rgba(59,130,246,0.35),transparent_65%)]
         opacity-0 group-hover:opacity-100 blur-md transition" />
 
-      {/* icon */}
+      
       <span className="relative text-white/70 group-hover:text-white transition">
         {children}
       </span>

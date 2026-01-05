@@ -36,7 +36,7 @@ export default function EnergyScene() {
       camera={{ position: [0, 1.2, 6], fov: 45 }}
       gl={{ antialias: true }}
     >
-      {/* ===== LIGHTING ===== */}
+      
       <ambientLight intensity={0.05} />
 
       <directionalLight
@@ -59,7 +59,7 @@ export default function EnergyScene() {
         color="#3b82f6"
       />
 
-      {/* ===== ENV ===== */}
+      
       <Environment preset="night" />
 
       {/* ===== MODEL ===== */}
@@ -69,7 +69,7 @@ export default function EnergyScene() {
         </EnergyCore>
       </Suspense>
 
-      {/* ===== ENERGY CORE ===== */}
+      
       <mesh position={[0, 1, 0]}>
         <sphereGeometry args={[1.25, 64, 64]} />
         <meshStandardMaterial
@@ -81,7 +81,7 @@ export default function EnergyScene() {
         />
       </mesh>
 
-      {/* ===== SHADOW ===== */}
+      
       <ContactShadows
         position={[0, -1.1, 0]}
         opacity={0.6}
@@ -90,7 +90,7 @@ export default function EnergyScene() {
         far={3}
       />
 
-      {/* ===== CONTROLS ===== */}
+      
       <OrbitControls enableZoom={false} enablePan={false} />
 
       {/* ===== POSTPROCESS (FIXED) ===== */}

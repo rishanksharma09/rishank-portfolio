@@ -10,7 +10,7 @@ export default function MobileNavbar() {
 
   return (
     <>
-      {/* Top bar */}
+      
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 
         bg-[#0b0f19]/70 backdrop-blur-xl border-b border-white/10 sm:hidden">
 
@@ -24,7 +24,7 @@ export default function MobileNavbar() {
         </button>
       </nav>
 
-      {/* Overlay */}
+      
       {open && (
         <div className="fixed inset-0 z-50 sm:hidden">
           
@@ -34,12 +34,12 @@ export default function MobileNavbar() {
             onClick={() => setOpen(false)}
           />
 
-          {/* menu panel */}
+          
           <div className="absolute top-0 left-0 right-0 
             bg-[#0b0f19] rounded-b-3xl p-8
             shadow-[0_20px_60px_rgba(0,0,0,0.7)]">
 
-            {/* close */}
+            
             <button
               onClick={() => setOpen(false)}
               className="absolute top-5 right-6 text-white text-2xl"
@@ -47,7 +47,7 @@ export default function MobileNavbar() {
               ✕
             </button>
 
-            {/* links */}
+            
             <ul className="mt-10 flex flex-col gap-6 text-lg font-medium text-white">
               {["Work", "Experience", "Skills"].map((item) => (
                 <li key={item}>
@@ -62,7 +62,7 @@ export default function MobileNavbar() {
               ))}
             </ul>
 
-            {/* CTA */}
+            
             <div className="mt-10">
               <a href="#contact" onClick={() => setOpen(false)}>
                 <Button className="w-full rounded-full bg-blue-600 hover:bg-blue-500">

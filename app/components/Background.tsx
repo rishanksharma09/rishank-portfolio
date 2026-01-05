@@ -4,7 +4,7 @@ const Background = () => {
   return (
     <div >
       <div className="min-h-screen w-full relative bg-black py-16 px-8 ">
-    {/* Ocean Abyss Background with Top Glow */}
+    
     <div
       className="absolute inset-0 z-0"
       style={{
@@ -12,7 +12,7 @@ const Background = () => {
       }}
     />
   
-    {/* Your Content/Components */}
+    
   </div>
     </div>
   )

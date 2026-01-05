@@ -35,11 +35,11 @@ export default function TechLogo({ model, scale }: TechLogoProps) {
       dpr={[1, 1.5]}
       camera={{ position: [0, 0, 5], fov: 45 }}
     >
-      {/* Minimal lighting */}
+     
       <ambientLight intensity={0.6} />
       <directionalLight position={[2, 2, 5]} intensity={0.8} />
 
-      {/* Light environment (optional) */}
+      
       <Environment preset="studio" />
 
       <TechLogoModel model={model} scale={scale} />

@@ -54,13 +54,13 @@ const TechStack = () => {
   return (
     <section className="relative min-h-screen px-6 md:px-12 pt-28 pb-24 text-white" id="skills">
 
-      {/* Background accents */}
+      
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-20 left-1/2 -translate-x-1/2 h-[400px] w-[400px] rounded-full bg-blue-500/10 blur-[120px]" />
         <div className="absolute bottom-20 right-20 h-[300px] w-[300px] rounded-full bg-cyan-400/10 blur-[100px]" />
       </div>
 
-      {/* Heading */}
+      
       <div className="max-w-3xl mb-16" ref={headingRef}>
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight" ref={headingTextRef}>
           My Preferred <span className="text-blue-400">Tech Stack</span>
@@ -71,7 +71,7 @@ const TechStack = () => {
         </p>
       </div>
 
-      {/* Grid */}
+      
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
         {techStack.map((tech,i) => (
           
@@ -90,7 +90,7 @@ const TechStack = () => {
           px-4 py-6
           "
           >
-            {/* Glow on hover */}
+            
             <div className="
               absolute inset-0 rounded-2xl
               bg-gradient-to-br from-blue-500/10 to-cyan-400/10
@@ -98,12 +98,12 @@ const TechStack = () => {
               transition-opacity duration-300
               " />
 
-            {/* 3D Logo */}
+            
             <div className="relative w-full h-[220px]">
               <TechLogo model={tech.model} scale={tech.scale} />
             </div>
 
-            {/* Name */}
+            
             <h2 className="relative mt-4 text-sm font-semibold tracking-wide text-white/80 group-hover:text-blue-400 transition-colors">
               {tech.name}
             </h2>

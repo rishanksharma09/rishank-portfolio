@@ -10,7 +10,7 @@ import { Home } from "lucide-react";
 import Link from "next/link";
 
 export default function Navbar() {
-  // check screen size for responsiveness
+  
   const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
   useEffect(() => {
     if (isMobile) return; 
@@ -41,7 +41,7 @@ export default function Navbar() {
       <div className="absolute inset-0 rounded-full blur-xl 
         bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.35),transparent_65%)]" />
 
-      {/* navbar body */}
+      
       <div
         className="
           relative
@@ -54,7 +54,7 @@ export default function Navbar() {
           shadow-[0_10px_40px_rgba(0,0,0,0.6)]
         "
       >
-        {/* Logo */}
+        
         <div className="relative flex items-center gap-1 group cursor-pointer">
           <Link href="#home">
 
@@ -69,10 +69,10 @@ export default function Navbar() {
             </Link>
         </div>
 
-        {/* Divider */}
+        
         <div className="h-6 w-px bg-white/10" />
 
-        {/* Links */}
+        
         <ul className="flex items-center gap-8 text-sm font-medium text-white/80">
           {["Work", "Experience", "Skills"].map((item) => (
             <li key={item} className="relative group">
@@ -89,7 +89,7 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* CTA */}
+        
         <a href="#contact"><Button
 
           className="

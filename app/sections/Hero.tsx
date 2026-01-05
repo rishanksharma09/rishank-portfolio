@@ -97,7 +97,7 @@ export default function Hero() {
       
       <main className="relative z-10 max-w-7xl mx-auto px-8 pt-32 grid grid-cols-1 lg:grid-cols-2 items-center gap-10">
 
-        {/* LEFT */}
+        
         <div className="flex flex-col gap-8" id="left">
           <h1 className="text-5xl md:text-6xl xl:text-7xl font-bold leading-tight text-white" ref={headingTextRef}>
             Saving the world <br />
@@ -133,7 +133,7 @@ export default function Hero() {
 
 
 
-        {/* MODEL */}
+        
         <div className="relative w-full h-full cursor-grab active:cursor-grabbing" id="right">
           <EnergySceneModel />
         </div>
@@ -144,7 +144,7 @@ export default function Hero() {
 
       </main>
 
-      {/* STATS */}
+      
       <section className="relative z-10 max-w-7xl mx-auto px-8 mt-24 grid grid-cols-2 lg:grid-cols-4 gap-6">
         {heroBoxes.map((box, i) => (
           <div key={i} ref={(el) => { heroBoxesRef.current[i] = el! }}>

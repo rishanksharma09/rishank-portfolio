@@ -21,7 +21,7 @@ export default function Experience({ data }: PropsArray) {
   const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
   const headingRef = useRef<HTMLDivElement>(null);
 
-  const [timelineHeight, setTimelineHeight] = useState(0); // Example height, adjust as needed
+  const [timelineHeight, setTimelineHeight] = useState(0); 
   useEffect(() => {
     const tl = gsap.timeline({
     scrollTrigger: {
@@ -44,7 +44,7 @@ export default function Experience({ data }: PropsArray) {
     end: "bottom bottom",
     scrub: true,
     onUpdate: (self) => {
-      setTimelineHeight(self.progress * 100); // Adjust multiplier as needed  
+      setTimelineHeight(self.progress * 100);  
     }
   })}, []);
 
@@ -55,7 +55,7 @@ export default function Experience({ data }: PropsArray) {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.12),transparent_45%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(37,99,235,0.15),transparent_45%)]" />
 
-      {/* heading */}
+      
       <div className="relative z-10 text-center mb-24" ref={headingRef} >
         <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-white" id="heading">
           My <span className="text-blue-500">Learning Journey</span>
@@ -65,10 +65,10 @@ export default function Experience({ data }: PropsArray) {
         </p>
       </div>
 
-      {/* timeline */}
+     
       <div className="relative z-10 max-w-5xl mx-auto px-6" id="experience-scroll-trigger">
 
-        {/* vertical glowing line */}
+       
         <div className={`absolute left-1/2 top-0 w-[2px] 
           bg-gradient-to-b from-transparent via-blue-500/40 to-transparent
           shadow-[0_0_30px_rgba(59,130,246,0.4)]`}
@@ -103,7 +103,7 @@ export default function Experience({ data }: PropsArray) {
                 isLeft ? "justify-start" : "justify-end"
               }`}
             >
-              {/* card */}
+              
               <div
                 ref={(el) => {cardRefs.current[index] = el}}
                 className={`w-full md:w-[45%] relative rounded-2xl p-6 z-10
@@ -128,7 +128,7 @@ export default function Experience({ data }: PropsArray) {
                   bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.12),transparent_60%)]" />
               </div>
 
-              {/* timeline node */}
+              
               <span className="absolute left-1/2 top-8 -translate-x-1/2 flex items-center justify-center z-0">
                 <span className="absolute w-8 h-8 rounded-full bg-blue-500/20 blur-md animate-pulse" />
                 <span className="relative w-3.5 h-3.5 rounded-full bg-white border-4 border-[#05070c]" />
