@@ -6,6 +6,10 @@ import { DefaultChatTransport } from "ai";
 import { Bot } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeHighlight from "rehype-highlight";
+
 
 export default function ChatbotUI() {
   const [open, setOpen] = useState(false);
@@ -16,8 +20,10 @@ export default function ChatbotUI() {
   const messagesRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  const sendSound = useRef<HTMLAudioElement | null>(null);
-  const receiveSound = useRef<HTMLAudioElement | null>(null);
+
+
+
+
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -40,7 +46,7 @@ export default function ChatbotUI() {
     return () => ctx.revert();
   }, []);
 
-  
+
   useLayoutEffect(() => {
     if (!open || !chatRef.current) return;
 
@@ -57,29 +63,30 @@ export default function ChatbotUI() {
     );
   }, [open]);
   const handleClose = () => {
-  if (!chatRef.current) return;
+    if (!chatRef.current) return;
 
-  gsap.to(chatRef.current, {
-    opacity: 0,
-    scale: 0.85,
-    y: 20,
-    duration: 0.35,
-    ease: "power3.in",
-    onComplete: () => {
-      setOpen(false);
-    },
-  });
-};
+    gsap.to(chatRef.current, {
+      opacity: 0,
+      scale: 0.85,
+      y: 20,
+      duration: 0.35,
+      ease: "power3.in",
+      onComplete: () => {
+        setOpen(false);
+      },
+    });
+  };
 
 
 
-  const { messages, sendMessage, status } = useChat({
+  const { messages, sendMessage, status, error } = useChat({
     transport: new DefaultChatTransport({
       api: "/api/chat",
     }),
   });
 
-  
+
+
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, status]);
@@ -88,7 +95,9 @@ export default function ChatbotUI() {
 
   const handleSend = () => {
     if (!input.trim()) return;
-    
+    if (status !== "ready") return;
+
+
     sendMessage({ text: input.trim() });
     setInput("");
   };
@@ -146,36 +155,65 @@ export default function ChatbotUI() {
             ref={messagesRef}
             onWheel={(e) => e.stopPropagation()}
           >
+            {!messages.length && (
+              <p className="text-center text-white/40 ">
+                Ask me anything about Rishank!
+              </p>
+            )}
             {messages.map((message) => (
               <div
                 key={message.id}
-                className={`flex ${
-                  message.role === "user"
-                    ? "justify-end"
-                    : "justify-start"
-                }`}
+                className={`flex ${message.role === "user" ? "justify-end" : "justify-start"
+                  }`}
               >
                 <div
                   className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm
-                  backdrop-blur-md shadow-lg
-                  ${
-                    message.role === "user"
+        backdrop-blur-md shadow-lg
+        ${message.role === "user"
                       ? "bg-gradient-to-br from-blue-500 to-cyan-500 text-black rounded-br-sm"
                       : "bg-white/10 text-white rounded-bl-sm"
-                  }`}
+                    }`}
                 >
                   {message.parts.map((part, i) =>
                     part.type === "text" ? (
-                      <span key={i}>{part.text}</span>
+                      <ReactMarkdown
+                        key={i}
+                        remarkPlugins={[remarkGfm]}
+                        rehypePlugins={[rehypeHighlight]}
+                      >
+                        {part.text}
+                      </ReactMarkdown>
                     ) : null
                   )}
-                  {status === "streaming" &&
-                    message.role === "assistant" && (
-                      <span className="ml-1 animate-pulse">▍</span>
-                    )}
                 </div>
               </div>
             ))}
+
+            {/* Loading indicator */}
+            {status === "submitted" && (
+              <div className="flex justify-start">
+                <div className="bg-white/10 rounded-2xl px-4 py-2 text-white/70 text-sm flex gap-1">
+                  <span className="animate-bounce">•</span>
+                  <span className="animate-bounce delay-150">•</span>
+                  <span className="animate-bounce delay-300">•</span>
+                </div>
+              </div>
+            )}
+            {/* Error message */}
+            {error && (
+              <div className="flex justify-start">
+                <div className="max-w-[80%] rounded-2xl px-4 py-3 text-sm
+      bg-red-500/10 text-red-400 border border-red-500/20">
+                  ⚠️ Something went wrong.
+                  <br />
+                  <span className="text-xs opacity-80">
+                    Please try again in a moment.
+                  </span>
+                </div>
+              </div>
+            )}
+
+
             <div ref={bottomRef} />
           </div>
 
@@ -185,6 +223,7 @@ export default function ChatbotUI() {
               bg-white/5 backdrop-blur-xl px-4 py-2">
               <input
                 value={input}
+
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask me anything…"
                 className="flex-1 bg-transparent text-sm text-white
@@ -193,7 +232,9 @@ export default function ChatbotUI() {
               />
               <button
                 onClick={handleSend}
-                className="rounded-xl bg-gradient-to-br
+
+                disabled={status !== "ready"}
+                className="rounded-xl bg-gradient-to-br cursor-pointer
                 from-blue-500 to-cyan-400
                 px-4 py-1.5 text-sm font-medium text-black
                 hover:brightness-110 transition"
